@@ -1,0 +1,264 @@
+*{
+    margin: 0;padding: 0;
+    box-sizing: border-box;
+    font-family: monospace, sans-serif;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+.backgroundPic{
+    background-image: url(3.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    height: 100vh;width: 100vw;
+    z-index: -999;
+    cursor: default;
+}
+.frostGlass{
+    background-color: rgba(255,255,255,.3);
+    backdrop-filter: blur(14px) saturate(190%);
+    border: solid 3px rgba(255, 255, 255, 0.3);
+    box-shadow: inset .5px .5px 3px white;
+    color: color-contrast(white vs black);
+}
+.zIsland{
+    height: 25px;
+    width: clamp(100px, 130px, 170px);
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.3rem;
+    margin: auto;
+    top: 3%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: default;
+    font-size: .6rem;
+    transition: .3s;
+    user-select: none;
+    overflow: hidden;
+}
+.zIsland:hover{
+    width: clamp(150px, 180px, 200px);
+}
+.zIsland.off{
+    width: 0;
+    height: 0;
+}
+.zIsland.active{
+    width: clamp(130px, 160px, 180px);
+}
+.clock{
+    display: inline;
+    padding: 15px 30px;
+    position: absolute;
+    margin: 5px;
+    border-radius: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+    line-height: 1;
+    font-size: clamp(2rem, 2.5rem,3rem);
+    color: white;
+    mix-blend-mode: difference;
+}
+.appBar{
+    position: absolute;
+    width: clamp(60%, 75%,85%);
+    border-radius: 3rem;
+    padding:  10px 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.app{
+    cursor: pointer;
+    transition: .1s;
+}
+.app:hover{
+    scale: 1.2;
+    transform: translateY(-5px);
+}
+.settingsApp{
+    position: absolute;
+    padding: 10px;
+    border-radius: 8px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width:clamp(30%,40%,50%);
+    height:clamp(30%,50%,60%);
+    font-size: .6rem;
+    transition: .3s;
+    display: none;
+}
+.appShow{
+    display: block;
+}
+
+li{
+    list-style: none;
+}
+.hideLi{
+    display: none;
+}
+.modeContainer{
+    height: 90%;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 2fr;
+    overflow: hidden;
+}
+.cross{
+    background-color: red;
+    width: 10px;
+    height:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    float: right;
+    font-size: 7px;
+    padding: 2px;
+}
+.modeName{
+    border: solid;
+    margin: 5px 0;
+    cursor: pointer;
+    padding: 5px;
+}
+.modeName li{
+    padding: 5px;
+}
+.modePlugs{
+    border: solid;
+    margin: 5px 0;
+    padding: 5px;
+}
+.wallpaperDemo{
+    display: inline;
+}
+.wallpaperDemo img{
+    width: 100px;
+    cursor: pointer;
+    margin: 5px;
+}
+.settingsApp button{
+    line-height: 1;
+    font-size: .5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 5px;
+    backdrop-filter: blur(12px) saturate(190%);
+}
+.selectedLi{
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 800;
+}
+strong{
+    font-family: 'Cedarville Cursive', cursive;
+}
+.imgSelected{
+    border: solid 1px black;
+    border-radius: 2px;
+    scale: 1.111;
+    transition: .1s;
+}
+.slide{
+    animation: slide 3s ease-in-out alternate;
+}
+@keyframes slide {
+    0% {
+        transform: translateX(140px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.infoBox{
+    padding: 10px;
+    width: 25vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 8px;
+    display: none;
+}
+.infoBox input, .infoBox button{
+    padding: 5px;
+    font-family: cursive;
+    outline: none;
+    display: block;
+    margin: 5px auto;
+}
+.infoShow{
+    display: block;
+}
+.messageApp{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    max-height: 80vh;
+    max-width: 40vw;
+    overflow: hidden;
+}
+.messageApp p{
+    font-size: .4rem;
+    position: relative;
+    line-height: 2;
+}
+.messageApp.active{
+    display: block;
+} 
+.msgList{
+    overflow:auto;
+    max-height: 50vh;
+}
+.deleteAll{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.deleteAll:active{
+    transform: translateY(2px);
+}
+
+
+
+
+
+
+@media (max-width: 900px) {
+    .modeContainer{
+        overflow: auto;
+    }
+    .settingsApp{
+        width: 90%;
+        height: 60%;
+    }
+    .clock{
+        font-size: clamp(1.1rem, 1.1rem, 2rem);
+    }
+}
