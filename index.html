@@ -42,6 +42,7 @@
                 <ul>
                     <li id="home" onclick="homeTab()">Home</li>
                     <li id="person" onclick="personTab()">Personalize</li>
+                    <li id="time" onclick="timeTab()">Format Time</li>
                     <li id="acc" onclick="accTab()">Account</li>
                     <li id="about" onclick="aboutTab()">About</li>
                 </ul>
@@ -50,7 +51,9 @@
                 <ul>
                     <li id="homePlug">
                         <p style="text-decoration: underline;">Home</p>
-                        <p>This is just a demo project.</p>
+                        <p>This is just a demo website.</p>
+                        <p>This web page is made with HTML, CSS, and JavaScript.</p>
+                        <p>Developed with &hearts; by Z-Axis</p>
                     </li>
                     <li id="personPlug">
                                 <p style="text-decoration: underline;">Personalize</p>
@@ -63,6 +66,20 @@
                                 <br>
                                 <button onclick="changeBg()">Change Wallpaper</button>
                 </li>
+                <li id="timePlug">
+                    <p style="text-decoration: underline;">Format Time</p>
+                    <p>Select the time format you prefer:</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" id="12hr" name="clockFormat" onclick="msg('Time format changed!')">
+                        <label for="12hr">12-hour format</label>
+                        <input type="radio" id="24hr" checked name="clockFormat" onclick="msg('Time format changed!')">
+                        <label for="24hr">24-hour format</label>
+                    </div>
+                    <p><i class="fas fa-warning"></i> Note: The clock will update automatically based on your selection.</p>
+                    <p>No need to click anything else.</p>
+                    <p>Fun feature: You can reposition the clock anywhere on the screen!</p>
+                    <p><i class="fas fa-warning"></i> Note: This feature is only available in the desktop version.</p>
+                </li>
                 <li id="accPlug">
                     <p style="text-decoration: underline;">Account</p>
                     <p>User name: <span class="userName">Unknown</span></p>
@@ -71,9 +88,11 @@
                 <li id="aboutPlug">
                     <p style="text-decoration: underline;">About</p>
                     <p>Website Name: Z-OS</p>
-                    <p>Version: 1.0.0</p>
+                    <p>Version: 1.5.0</p>
                     <p>Developed by: Z-Axis</p>
                     <p>Inspired by Apple©</p>
+                    <p><a href="http://github.com/prattikk69" target="_blank" rel="noopener noreferrer" style="color: black;"> Visit GitHub Profile</a></p>
+                    <p><span id="year"></span> &copy; Z-Axis || All rights reserved</p>
                 </li>
             </ul>
             </div>
