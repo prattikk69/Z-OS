@@ -7,9 +7,10 @@ const cross = document.querySelector('.cross')
 const barSetting = document.querySelector('.barSetting')
 const homePlug = document.getElementById("homePlug");
 const personPlug = document.getElementById("personPlug");
+const timePlug = document.getElementById("timePlug");
 const accPlug = document.getElementById("accPlug");
 const aboutPlug = document.getElementById("aboutPlug");
-
+const time = document.getElementById("time");
 
 
 cross.addEventListener('click', ()=>{
@@ -22,11 +23,13 @@ barSetting.addEventListener('click', ()=>{
 function homeTab(){
     homePlug.classList.remove("hideLi");
     personPlug.classList.add("hideLi");
+    timePlug.classList.add("hideLi");
     accPlug.classList.add("hideLi");
     aboutPlug.classList.add("hideLi");
     about.classList.remove("selectedLi");
     home.classList.add("selectedLi");
     person.classList.remove("selectedLi");
+    time.classList.remove("selectedLi");
     acc.classList.remove("selectedLi");
 }
 function personTab(){
@@ -37,7 +40,9 @@ function personTab(){
     about.classList.remove("selectedLi");
     home.classList.remove("selectedLi");
     person.classList.add("selectedLi");
+    time.classList.remove("selectedLi");
     acc.classList.remove("selectedLi");
+    timePlug.classList.add("hideLi");
 }
 function accTab(){
     homePlug.classList.add("hideLi");
@@ -48,6 +53,8 @@ function accTab(){
     home.classList.remove("selectedLi");
     person.classList.remove("selectedLi");
     acc.classList.add("selectedLi");
+    timePlug.classList.add("hideLi");
+    time.classList.remove("selectedLi");
 }
 function aboutTab(){
     homePlug.classList.add("hideLi");
@@ -55,6 +62,20 @@ function aboutTab(){
     accPlug.classList.add("hideLi");
     aboutPlug.classList.remove("hideLi");
     about.classList.add("selectedLi");
+    home.classList.remove("selectedLi");
+    person.classList.remove("selectedLi");
+    acc.classList.remove("selectedLi");
+    timePlug.classList.add("hideLi");
+    time.classList.remove("selectedLi");
+}
+function timeTab(){
+    timePlug.classList.remove("hideLi");
+    time.classList.add("selectedLi");
+    homePlug.classList.add("hideLi");
+    personPlug.classList.add("hideLi");
+    accPlug.classList.add("hideLi");
+    aboutPlug.classList.add("hideLi");
+    about.classList.remove("selectedLi");
     home.classList.remove("selectedLi");
     person.classList.remove("selectedLi");
     acc.classList.remove("selectedLi");
@@ -67,14 +88,19 @@ const hour = document.querySelector('.hour')
 const minute = document.querySelector('.minute')
 const second = document.querySelector('.second')
 const clockBox = document.querySelector('.clock')
+const year = document.getElementById('year');
+year.textContent = new Date().getFullYear();
 let isDragging = false;
 
 function clock(){
     const now = new Date();
-    let getHour = String(now.getHours()).padStart(2, '0');
+        let getHour = now.getHours();
+    if (document.getElementById('12hr').checked) {
+        getHour = getHour % 12 || 12; // convert to 12-hour format
+    }
+    hour.textContent = String(getHour).padStart(2, '0');
     let getMinute = String(now.getMinutes()).padStart(2, '0');
     let getSec = String(now.getSeconds()).padStart(2, '0');
-    hour.textContent = getHour;
     minute.textContent = getMinute;
     second.textContent = getSec;
     const msUntilNextSecond = 1000 - now.getMilliseconds();
@@ -161,7 +187,7 @@ function changeBg(){
     const selectedImage = document.querySelector('.imgSelected');
     if(selectedImage){
         backgroundPic.style.backgroundImage = `url(${selectedImage.src})`;
-        msg('change successful!');
+        msg('Wallpaper changed successfully!');
     } else {
         alert('Please select a wallpaper first!');
     }
