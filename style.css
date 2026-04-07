@@ -234,6 +234,9 @@ strong{
     overflow:auto;
     max-height: 50vh;
 }
+.msgList li{
+    list-style:circle;
+}
 .deleteAll{
     display: flex;
     align-items: center;
