@@ -187,7 +187,7 @@ function changeBg(){
     const selectedImage = document.querySelector('.imgSelected');
     if(selectedImage){
         backgroundPic.style.backgroundImage = `url(${selectedImage.src})`;
-        msg('Wallpaper changed successfully!');
+        msg('BG changed successfully!');
     } else {
         alert('Please select a wallpaper first!');
     }
