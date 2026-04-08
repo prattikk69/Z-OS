@@ -7,6 +7,7 @@ body{
     height: 100vh;
     width: 100vw;
     position: relative;
+    overflow: hidden;
 }
 .backgroundPic{
     background-image: url(3.jpg);
@@ -43,6 +44,7 @@ body{
     transition: .3s;
     user-select: none;
     overflow: hidden;
+    z-index: 999999;
 }
 .zIsland:hover{
     width: clamp(150px, 180px, 200px);
@@ -75,7 +77,7 @@ body{
     padding:  10px 15px;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10%;
+    bottom: 7%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,7 +99,7 @@ body{
     top: 50%;
     transform: translate(-50%, -50%);
     width:clamp(30%,40%,50%);
-    height:clamp(30%,50%,60%);
+    height:clamp(30%,60%,80%);
     font-size: .6rem;
     transition: .3s;
     display: none;
@@ -235,7 +237,7 @@ strong{
     max-height: 50vh;
 }
 .msgList li{
-    list-style:circle;
+    list-style: decimal;
 }
 .deleteAll{
     display: flex;
@@ -247,8 +249,47 @@ strong{
 .deleteAll:active{
     transform: translateY(2px);
 }
-
-
+.browserApp {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 80vh;
+    border-radius: 5px;
+    padding: 15px;
+    display: none;
+}
+.browserApp.appShow{
+    display: block;
+}
+.gcse-search {
+    display: block;
+}
+.weatherApp{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90vw;
+    display: none;
+    height: 90vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.weatherApp iframe{
+    border: none;
+    height: 200px;
+    width: 100%;
+    height: 90%;
+    border-radius: 8px;
+    position: relative;
+}
+.weatherApp.appShow{
+    display: block;
+}
 
 
 
