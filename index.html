@@ -16,7 +16,13 @@
 </head>
 <body>
     <div class="backgroundPic"></div>
+
+
+
     <div class="zIsland"></div>
+    
+    
+    
     <div class="clock frostGlass">
         <i class="far fa-clock"></i>
         <span class="hour">00</span>
@@ -25,6 +31,8 @@
         <span>:</span>
         <span class="second">00</span>
     </div>
+    
+    
     <div class="appBar frostGlass">
         <div class="app barSetting">
             <i class="fas fa-gear"></i>
@@ -32,7 +40,16 @@
         <div class="app barMessagge">
             <i class="fas fa-envelope"></i>
         </div>
+        <div class="app barBrowser">
+            <i class="fab fa-google"></i>
+        </div>
+        <div class="app barWeather">
+            <i class="fas fa-cloud-sun"></i>
+        </div>
     </div>
+    
+    
+    
     <div class="settingsApp frostGlass">
         <div class="cross"><i class="fas fa-xmark"></i></div>
         <strong>Settings</strong> 
@@ -52,6 +69,9 @@
                     <li id="homePlug">
                         <p style="text-decoration: underline;">Home</p>
                         <p>This is just a demo website.</p>
+                        <p>And it is still under development.</p>
+                        <p>Lots of features are yet to be added.</p>
+                        <p>Stay tuned for more updates!</p>
                         <p>This web page is made with HTML, CSS, and JavaScript.</p>
                         <p>Developed with &hearts; by Z-Axis</p>
                     </li>
@@ -63,6 +83,9 @@
                                 <div class="wallpaperDemo"><img loading="lazy" src="2.jpg"></div>
                                 <div class="wallpaperDemo"><img loading="lazy" src="3.jpg"></div>
                                 <div class="wallpaperDemo"><img loading="lazy" src="4.jpg"></div>
+                                <div class="wallpaperDemo"><img loading="lazy" src="5.jpg"></div>
+                                <div class="wallpaperDemo"><img loading="lazy" src="6.jpg"></div>
+                                <div class="wallpaperDemo"><img loading="lazy" src="7.jpg"></div>
                                 <br>
                                 <button onclick="changeBg()">Change Wallpaper</button>
                 </li>
@@ -88,7 +111,7 @@
                 <li id="aboutPlug">
                     <p style="text-decoration: underline;">About</p>
                     <p>Website Name: Z-OS</p>
-                    <p>Version: 1.5.0</p>
+                    <p>Version: 2.0.0</p>
                     <p>Developed by: Z-Axis</p>
                     <p>Inspired by Apple©</p>
                     <p><a href="http://github.com/prattikk69" target="_blank" rel="noopener noreferrer" style="color: black;"> Visit GitHub Profile</a></p>
@@ -98,6 +121,21 @@
             </div>
         </div>
     </div>
+    <div class="browserApp frostGlass">
+            <div class="cross browserCross"><i class="fas fa-xmark"></i></div>
+            <strong>Browser</strong> 
+            <p>Your personal search engine</p>
+            <hr>
+            <div class="gcse-search"></div>
+        </div>
+    <div class="weatherApp frostGlass">
+        <strong>Weather Forecast</strong>
+        <div class="cross weatherCross"><i class="fas fa-xmark"></i></div>
+        <hr>
+        <iframe src="https://getweatherx.web.app" frameborder="0"></iframe>
+    </div>
+    
+    
     <div class="infoBox frostGlass">
         <p>Edit Account Information</p>
         <input class="frostGlass" type="text" placeholder="Enter your name here..." id="name">
@@ -120,6 +158,8 @@
             </div>
         </div>
 
+
     <script src="script.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=e5bac38aaf2704a88"></script>
 </body>
 </html>
