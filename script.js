@@ -271,3 +271,27 @@ function loadName(){
             displayMsg();
                 updateMsgCount();
         }
+
+
+//-----------------Browser App----------------------
+const browserApp = document.querySelector('.browserApp');
+const browserIcon = document.querySelector('.barBrowser');
+const browserCross = document.querySelector('.browserCross'
+);
+browserIcon.addEventListener('click', () => {
+    browserApp.classList.add('appShow');
+});
+browserCross.addEventListener('click', () => {
+    browserApp.classList.remove('appShow');
+});
+
+//-----------------Weather App----------------------
+const weatherApp = document.querySelector('.weatherApp');
+const weatherIcon = document.querySelector('.barWeather');
+const weatherCross = document.querySelector('.weatherCross');   
+weatherIcon.addEventListener('click', () => {
+    weatherApp.classList.add('appShow');
+});
+weatherCross.addEventListener('click', () => {
+    weatherApp.classList.remove('appShow');
+});
