@@ -1,8 +1,7 @@
 *{
     margin: 0;padding: 0;
     box-sizing: border-box;
-    font-family: monospace, sans-serif;
-}
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;}
 body{
     height: 100vh;
     width: 100vw;
@@ -10,7 +9,7 @@ body{
     overflow: hidden;
 }
 .backgroundPic{
-    background-image: url(3.jpg);
+    background-image: url(2.jpg);
     background-position: center;
     background-size: cover;
     position: absolute;
@@ -19,15 +18,32 @@ body{
     cursor: default;
 }
 .frostGlass{
-    background-color: rgba(255,255,255,.3);
-    backdrop-filter: blur(14px) saturate(190%);
-    border: solid 3px rgba(255, 255, 255, 0.3);
-    box-shadow: inset .5px .5px 3px white;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25);
     color: color-contrast(white vs black);
+}
+.frostGlass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.25),
+        rgba(255,255,255,0.05)
+    );
+
+    pointer-events: none;
 }
 .zIsland{
     height: 25px;
-    width: clamp(100px, 130px, 170px);
+    width: clamp(100px, 160px, 200px);
     background-color: black;
     color: white;
     display: flex;
@@ -45,19 +61,16 @@ body{
     user-select: none;
     overflow: hidden;
     z-index: 999999;
+    padding: 15px 10px;
 }
 .zIsland:hover{
     width: clamp(150px, 180px, 200px);
 }
-.zIsland.off{
-    width: 0;
-    height: 0;
-}
 .zIsland.active{
-    width: clamp(130px, 160px, 180px);
+    width: clamp(130px, 180px, 2000px);
 }
 .clock{
-    display: inline;
+    display: flex;
     padding: 15px 30px;
     position: absolute;
     margin: 5px;
@@ -68,77 +81,157 @@ body{
     line-height: 1;
     font-size: clamp(2rem, 2.5rem,3rem);
     color: white;
-    mix-blend-mode: difference;
+    align-items: center;
 }
-.appBar{
+.taskbar{
     position: absolute;
-    width: clamp(60%, 75%,85%);
+    width: clamp(40%, auto,85%);
     border-radius: 3rem;
-    padding:  10px 15px;
+    padding:  10px 25px;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10%;
+    bottom: 7%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
+    cursor: pointer;
 }
 .app{
-    cursor: pointer;
     transition: .1s;
+    padding: 5px;
+    border-radius: 50%;
 }
-.app:hover{
-    scale: 1.2;
-    transform: translateY(-5px);
+.app.clicked{
+    animation: bounce 1.5s;
 }
-.settingsApp{
+@keyframes bounce {
+    0%{
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-20px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    75% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.apk {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%) scale(0.8);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                opacity 0.4s ease;
+    max-width: 90vw;
+    min-width: 0;
+    padding: 0;
+    pointer-events: none; /* prevent clicks when closed */
+}
+
+.apk.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    min-width: 40vw;
+    padding: 30px;
+    pointer-events: auto;
+}
+
+.apk .control{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    border-bottom: solid .7px;
+    scale: .6;
+    padding: 5px;
+    gap: 10px;
+    top: -2px;
+    left: -2px;
+}
+.close, .minimize{
+    padding: 5px;
+    position: relative;
+}
+.close:hover{
+    background-color:red;
+}
+.minimize:hover{
+    background-color:gray;
+}
+strong{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+.apps{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+.gridApp{
+    max-width: 30vw;
+}
+.gridApp .app{
+    border: solid;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gridApp .power{
+    position: absolute;
+    bottom: 5%;
+    right: 20px;
+    scale: .7;
+}
+.settingsApp {
     position: absolute;
     padding: 10px;
     border-radius: 8px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width:clamp(30%,40%,50%);
-    height:clamp(30%,60%,80%);
+    width: clamp(30%,40%,60%);
+    height: clamp(30%,60%,80%);
     font-size: .6rem;
     transition: .3s;
-    display: none;
+    overflow: hidden; /* remove this line */
+    display: flex;
+    flex-direction: column;
 }
-.appShow{
-    display: block;
-}
-
-li{
+.settingsApp li{
     list-style: none;
 }
 .hideLi{
     display: none;
 }
-.modeContainer{
-    height: 90%;
+.modeContainer {
     display: grid;
-    gap: 5px;
     grid-template-columns: 1fr 2fr;
-    overflow: hidden;
-}
-.cross{
-    background-color: red;
-    width: 10px;
-    height:10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    position: relative;
-    float: right;
-    font-size: 7px;
-    padding: 2px;
+    gap: 5px;
+    flex: 1;          /* take full height inside settingsApp */
+    min-height: 0;    /* allow children to shrink properly */
+    overflow: auto;
 }
 .modeName{
     border: solid;
     margin: 5px 0;
     cursor: pointer;
     padding: 5px;
+}
+.modeContainer .personPlug {
+    height: 100%;
+    min-height: 0;    /* critical for scroll inside flex/grid */
+    padding-right: 8px;
+    display: flex;
 }
 .modeName li{
     padding: 5px;
@@ -155,22 +248,6 @@ li{
     width: 100px;
     cursor: pointer;
     margin: 5px;
-}
-.settingsApp button{
-    line-height: 1;
-    font-size: .5rem;
-    border-radius: 12px;
-    cursor: pointer;
-    padding: 5px;
-    backdrop-filter: blur(12px) saturate(190%);
-}
-.selectedLi{
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    font-weight: 800;
-}
-strong{
-    font-family: 'Cedarville Cursive', cursive;
 }
 .imgSelected{
     border: solid 1px black;
@@ -189,92 +266,31 @@ strong{
         transform: translateX(0);
     }
 }
-.infoBox{
-    padding: 10px;
-    width: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border-radius: 8px;
-    display: none;
-}
-.infoBox input, .infoBox button{
-    padding: 5px;
-    font-family: cursive;
-    outline: none;
-    display: block;
-    margin: 5px auto;
-}
-.infoShow{
-    display: block;
-}
-.messageApp{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none;
-    max-height: 80vh;
-    max-width: 40vw;
-    overflow: hidden;
-}
-.messageApp p{
-    font-size: .4rem;
-    position: relative;
-    line-height: 2;
-}
-.messageApp.active{
-    display: block;
-} 
-.msgList{
-    overflow:auto;
-    max-height: 50vh;
-}
-.msgList li{
-    list-style: decimal;
-}
-.deleteAll{
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.settingsApp button{
+    line-height: 1;
+    font-size: .5rem;
+    border-radius: 12px;
     cursor: pointer;
-    margin-top: 10px;
+    padding: 5px;
+    backdrop-filter: blur(12px) saturate(190%);
 }
-.deleteAll:active{
-    transform: translateY(2px);
+.selectedLi{
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 800;
 }
 .browserApp {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;
     width: 90vw;
     height: 80vh;
     border-radius: 5px;
     padding: 15px;
-    display: none;
-}
-.browserApp.appShow{
-    display: block;
-}
-.gcse-search {
-    display: block;
 }
 .weatherApp{
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;
     border-radius: 10px;
     padding: 20px;
     width: 100vw;
-    display: none;
     height: 95vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -286,22 +302,47 @@ strong{
     border-radius: 8px;
     position: relative;
 }
-.weatherApp.appShow{
-    display: block;
+.calculatorApp{
+    position: absolute;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100vw;
+    height: 95vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.calculatorApp iframe{
+    border: none;
+    height: 200px;
+    width: 100%;
+    height: 90%;
+    border-radius: 8px;
+    position: relative;
 }
 
 
 
 
-@media (max-width: 900px) {
-    .modeContainer{
-        overflow: auto;
+
+@media (max-width: 700px) {
+    .settingsApp {
+        width: 90vw;
+        height: 80vh;
     }
-    .settingsApp{
-        width: 90%;
-        height: 60%;
+
+}
+
+
+
+@media (max-width: 500px) {
+    .gridApp {
+        max-width: 90vw;
+        grid-template-columns: repeat(2, 1fr);
     }
-    .clock{
-        font-size: clamp(1.1rem, 1.1rem, 2rem);
+    .taskbar{
+        width: 80vw;
+        gap: 5px;
+    }
+    .app{
+        scale: .7;
     }
 }
