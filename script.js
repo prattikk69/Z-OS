@@ -134,8 +134,7 @@ const powerButton = document.querySelector('.power');
 powerButton.addEventListener('click', () => {
     const ask = confirm('Are you sure you want to shut down?');
     if(ask){
-        apkWindows.forEach(window => window.classList.remove('active'));
-        apps.forEach(app => app.classList.remove('clicked'));
+        alert('Shutting down...');
         setTimeout(() => {
             window.close();
         }, 2000);
@@ -256,9 +255,16 @@ const hour = document.querySelector('.hour')
 const minute = document.querySelector('.minute')
 const second = document.querySelector('.second')
 const clockBox = document.querySelector('.clock')
+const barHour = document.querySelector('.barHour')
+const barMinute = document.querySelector('.barMinute')
+const barMonth = document.querySelector('.barMonth')
+const barDay = document.querySelector('.barDay')
+const barDate = document.querySelector('.barDate')
 const year = document.getElementById('year');
 year.textContent = new Date().getFullYear();
 let isDragging = false;
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 
 function clock(){
     const now = new Date();
@@ -267,10 +273,15 @@ function clock(){
         getHour = getHour % 12 || 12; // convert to 12-hour format
     }
     hour.textContent = String(getHour).padStart(2, '0');
+    barHour.textContent = String(getHour).padStart(2, '0');
     let getMinute = String(now.getMinutes()).padStart(2, '0');
     let getSec = String(now.getSeconds()).padStart(2, '0');
     minute.textContent = getMinute;
     second.textContent = getSec;
+    barMinute.textContent = getMinute;
+    barMonth.textContent = monthNames[now.getMonth()];
+    barDay.textContent = String(now.getDay()).padStart(2, '0');
+    barDate.textContent = String(now.getDate()).padStart(2, '0');
     const msUntilNextSecond = 1000 - now.getMilliseconds();
     setTimeout(clock, msUntilNextSecond);
 }
@@ -394,3 +405,32 @@ window.addEventListener('load', () => {
     updateMsgCount();
 
 });
+
+//-----------------Battery Status----------------------
+if ('getBattery' in navigator) {
+    navigator.getBattery().then(battery => {
+        const batteryLevel = document.querySelector('.batteryStatus');
+        const batteryIcon = document.createElement('i');
+        if (battery.level > 0.9) {
+            batteryIcon.className = 'fas fa-battery-full';
+        } else if (battery.level > 0.5) {
+            batteryIcon.className = 'fas fa-battery-three-quarters';
+        } else if (battery.level == 0.5) {
+            batteryIcon.className = 'fas fa-battery-half';
+        } else if (battery.level > 0.45) {
+            batteryIcon.className = 'fas fa-battery-quarter';
+        } else {
+            batteryIcon.className = 'fas fa-battery-empty';
+        }
+        batteryLevel.appendChild(batteryIcon);
+
+        const batteryPercentage = document.querySelector('.batteryPercentage');
+        batteryLevel.addEventListener('mouseover', () => {
+            batteryPercentage.textContent = battery.level * 100 + '%';
+            batteryPercentage.classList.add('showBattery');
+        }); 
+        batteryLevel.addEventListener('mouseout', () => {
+            batteryPercentage.classList.remove('showBattery');
+        });
+    });
+}
