@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css?">   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
@@ -16,42 +15,53 @@
 </head>
 <body>
     <div class="backgroundPic"></div>
-
-
-
     <div class="zIsland"></div>
-    
-    
-    
+
     <div class="clock frostGlass">
         <i class="far fa-clock"></i>
-        <span class="hour">00</span>
+        <span class="hour">Getting</span>
         <span>:</span>
-        <span class="minute">00</span>
+        <span class="minute">Time</span>
         <span>:</span>
-        <span class="second">00</span>
+        <span class="second">...</span>
     </div>
-    
-    
-    <div class="appBar frostGlass">
-        <div class="app barSetting">
-            <i class="fas fa-gear"></i>
-        </div>
-        <div class="app barMessagge">
-            <i class="fas fa-envelope"></i>
-        </div>
-        <div class="app barBrowser">
-            <i class="fab fa-google"></i>
-        </div>
-        <div class="app barWeather">
-            <i class="fas fa-cloud-sun"></i>
-        </div>
+
+
+
+    <div class="taskbar frostGlass">
+        <div class="app" data-app="grid"><i class="fa fa-grip"></i></div>
+        <div class="app" data-app="settings"><i class="fa fa-gears"></i></div>
+        <div class="app" data-app="messages"><i class="fa fa-comment"></i></div>
+        <div class="app" data-app="browser"><i class="fab fa-chrome"></i></div>
+        <div class="app" data-app="calculator"><i class="fa fa-calculator"></i></div>
+        <div class="app" data-app="weather"><i class="fa fa-cloud-bolt"></i></div>
     </div>
-    
-    
-    
-    <div class="settingsApp frostGlass">
-        <div class="cross"><i class="fas fa-xmark"></i></div>
+
+
+    <div class="gridApp frostGlass apk" id="grid">
+        <div class="control">
+            <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+            <span class="minimize"><i class="fas fa-minus"></i></span>
+            <span class="close"><i class="fas fa-times"></i></span>
+        </div>
+        <strong>Start</strong>
+        <div class="apps">
+            <div class="gridApp" onclick="openApp('settings', this)"><i class="fa fa-gears"></i><span></span></div>
+            <div class="gridApp" onclick="openApp('messages', this)"><i class="fa fa-comment"></i><span></span></div>
+            <div class="gridApp" onclick="openApp('browser', this)"><i class="fab fa-chrome"></i><span></span></div>
+            <div class="gridApp" onclick="openApp('calculator', this)"><i class="fa fa-calculator"></i><span></span></div>
+            <div class="gridApp" onclick="openApp('weather', this)"><i class="fa fa-cloud-bolt"></i><span></span></div>
+        </div>
+        <div class="power"><i class="fas fa-power-off"></i></div>
+    </div>
+    </div>
+
+    <div class="apk frostGlass settingsApp" id="settings">
+        <div class="control">
+            <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+            <span class="minimize"><i class="fas fa-minus"></i></span>
+            <span class="close"><i class="fas fa-times"></i></span>
+        </div>
         <strong>Settings</strong> 
         <hr>
         <div class="modeContainer">
@@ -73,6 +83,7 @@
                         <p>Lots of features are yet to be added.</p>
                         <p>Stay tuned for more updates!</p>
                         <p>This web page is made with HTML, CSS, and JavaScript.</p>
+                        <p>Please do provide feedback by clicking <a href="mailto:prattikkthapa@gmail.com">Here</a></p>
                         <p>Developed with &hearts; by Z-Axis</p>
                     </li>
                     <li id="personPlug">
@@ -111,7 +122,7 @@
                 <li id="aboutPlug">
                     <p style="text-decoration: underline;">About</p>
                     <p>Website Name: Z-OS</p>
-                    <p>Version: 2.0.0</p>
+                    <p>Version: 4.0.0</p>
                     <p>Developed by: Z-Axis</p>
                     <p>Inspired by Apple©</p>
                     <p><a href="http://github.com/prattikk69" target="_blank" rel="noopener noreferrer" style="color: black;"> Visit GitHub Profile</a></p>
@@ -119,31 +130,37 @@
                 </li>
             </ul>
             </div>
-        </div>
     </div>
-    <div class="browserApp frostGlass">
-            <div class="cross browserCross"><i class="fas fa-xmark"></i></div>
+    </div>
+
+    <div class="browserApp frostGlass apk" id="browser">
+        <div class="control">
+            <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+            <span class="minimize"><i class="fas fa-minus"></i></span>
+            <span class="close"><i class="fas fa-times"></i></span>
+        </div>
             <strong>Browser</strong> 
             <p>Your personal search engine</p>
             <hr>
             <div class="gcse-search"></div>
         </div>
-    <div class="weatherApp frostGlass">
+    <div class="weatherApp frostGlass apk" id="weather">
+        <div class="control">
+            <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+            <span class="minimize"><i class="fas fa-minus"></i></span>
+            <span class="close"><i class="fas fa-times"></i></span>
+        </div>
         <strong>Weather Forecast</strong>
-        <div class="cross weatherCross"><i class="fas fa-xmark"></i></div>
         <hr>
         <iframe src="https://getweatherx.web.app" frameborder="0"></iframe>
     </div>
-    
-    
-    <div class="infoBox frostGlass">
-        <p>Edit Account Information</p>
-        <input class="frostGlass" type="text" placeholder="Enter your name here..." id="name">
-        <button class="frostGlass" onclick="saveInfo()">Save</button>
-        <button class="frostGlass" onclick="hideInfo()">Cancel</button>
-    </div>
-        <div class="messageApp frostGlass">
-        <div class="msgCross cross"><i class="fas fa-xmark"></i></div>
+
+    <div class="messageApp frostGlass apk" id="messages">
+        <div class="control">
+            <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+            <span class="minimize"><i class="fas fa-minus"></i></span>
+            <span class="close"><i class="fas fa-times"></i></span>
+        </div>
         <strong>Messages</strong> 
         <p>Total messages: <span class="msgCount">0</span></p>
         <hr>
@@ -157,9 +174,23 @@
                 Delete All Messages
             </div>
         </div>
+    </div>
+    <div class="apk frostGlass calculatorApp" id="calculator">
+            <div class="control">
+                <span class="drag" title="drag window"><i class="fas fa-hand-back-fist"></i></span>
+                <span class="minimize"><i class="fas fa-minus"></i></span>
+                <span class="close"><i class="fas fa-times"></i></span>
+            </div>
+            <strong>Calculator</strong>
+                <hr>
+            <iframe src="https://prattikk69.github.io/Calculator/" frameborder="0"></iframe>
+        </div>
 
 
-    <script src="script.js"></script>
+
+
+
     <script async src="https://cse.google.com/cse.js?cx=e5bac38aaf2704a88"></script>
+    <script src="script.js"></script>
 </body>
 </html>
