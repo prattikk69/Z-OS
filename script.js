@@ -1,3 +1,180 @@
+//----------------TaskBar Hover Effect----------------
+const apps = document.querySelectorAll('.app');
+document.querySelector('.taskbar').addEventListener('mousemove', e => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    apps.forEach(app => {
+        const appRect = app.getBoundingClientRect();
+        const appCenter = appRect.left + appRect.width / 2 - rect.left;
+        const distance = Math.abs(mouseX - appCenter);
+        const maxScale = 1.5;
+        const minScale = 1;
+        const influence = 150;
+        let scale = minScale + (maxScale - minScale) * Math.max(0, (influence - distance) / influence);
+        app.style.transform = `scale(${scale}) translateY(${-(scale - 1) * 15}px)`;
+        app.style.boxShadow = `2px  2px ${scale * 5}px rgba(0, 0, 0, ${scale - 1})`;
+    });
+});
+
+document.querySelector('.taskbar').addEventListener('mouseleave', () => {
+    apps.forEach(app => {
+        app.style.transform = 'scale(1) translateY(0)';
+        app.style.boxShadow = '2px 2px 0 rgba(0, 0, 0, 0)';
+    });
+});
+
+apps.forEach(app => {
+    app.addEventListener('click', () => {
+        apps.forEach(a => a.classList.remove('clicked'));
+
+        // Add 'clicked' to the one that was clicked
+        app.classList.add('clicked');
+        const appID = app.getAttribute('data-app');
+        openApp(appID, app);
+        // Remove it after 3 seconds
+        setTimeout(() => {
+            app.classList.remove('clicked');
+        }, 1500);
+    });
+});
+
+
+//----------------Open Appps----------------
+function openApp(appID, app) {
+    if(window.innerWidth < 700){
+        if(appID === 'weather' || appID === 'calculator'){
+            alert('This app is only available in desktop version!');
+            return;
+        }
+    }
+    const appWindow = document.getElementById(appID);
+    if(appWindow.classList.contains('active')){
+        appWindow.classList.remove('active');
+        app.classList.remove('clicked');
+        return;
+    }
+    if (appWindow) {
+        appWindow.classList.add('active');
+    }   
+    if(appID === 'settings'){
+        homeTab();
+    }
+}
+
+//----------------Close Apps----------------
+const closeButtons = document.querySelectorAll('.close');
+closeButtons.forEach(button => {
+    button.addEventListener('click', () => {    
+        const appWindow = button.closest('.apk');
+        appWindow.classList.remove('active');
+        const appID = appWindow.getAttribute('id');
+        const taskbarApp = document.querySelector(`.gridApp[data-app="${appID}"]`);
+        if (taskbarApp) {
+            taskbarApp.classList.remove('clicked');
+        }
+    });
+});
+//----------------Minimize Apps----------------
+const minimizeButtons = document.querySelectorAll('.minimize');
+minimizeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const appWindow = button.closest('.apk');
+        appWindow.classList.remove('active');
+        const appID = appWindow.getAttribute('id');
+        const taskbarApp = document.querySelector(`.gridApp[data-app="${appID}"]`);
+        if (taskbarApp) {
+            taskbarApp.classList.remove('clicked');
+        }
+    });
+});
+//----------------Draggable Apps----------------
+const apkWindows = document.querySelectorAll('.apk');
+
+apkWindows.forEach(win => {
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Only drag from a handle (like .drag)
+    const dragHandle = win.querySelector('.drag');
+
+    dragHandle.addEventListener("mousedown", e => {
+        isDragging = true;
+
+        // Calculate offset between mouse and window position
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+
+        win.style.cursor = "grabbing";
+        e.preventDefault(); // prevent text selection
+    });
+
+    document.addEventListener("mousemove", e => {
+        if (!isDragging) return;
+
+        // Apply offset so window follows pointer naturally
+        win.style.left = (e.clientX - offsetX) + "px";
+        win.style.top = (e.clientY - offsetY) + "px";
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        win.style.cursor = "default";
+    });
+});
+
+//-----------------app focus-----------------
+apkWindows.forEach(window => {
+    window.addEventListener('mousedown', () => {
+        apkWindows.forEach(w => w.style.zIndex = '0');
+        window.style.zIndex = '1';
+    }); 
+});
+//-----------------close app------------------
+const powerButton = document.querySelector('.power');
+powerButton.addEventListener('click', () => {
+    const ask = confirm('Are you sure you want to shut down?');
+    if(ask){
+        apkWindows.forEach(window => window.classList.remove('active'));
+        apps.forEach(app => app.classList.remove('clicked'));
+        setTimeout(() => {
+            window.close();
+        }, 2000);
+    }
+});
+
+//------------------zIsland-----------------
+const zIsland = document.querySelector(".zIsland");
+
+function msg(message) {
+    storeMsg(message);
+    displayMsg();
+    if (message.length > 10) {
+        const marq = document.createElement('div');
+        marq.textContent = message;
+        marq.style.whiteSpace = 'nowrap';   // prevent line breaks
+        marq.style.overflow = 'hidden'; 
+        marq.style.display = 'block';
+        marq.classList.add('slide');
+        zIsland.classList.add('active');
+        zIsland.textContent = "";
+        zIsland.appendChild(marq);
+
+        marq.addEventListener('animationend', () => {
+            zIsland.classList.remove('active');
+            zIsland.textContent = "";
+        });
+
+    } else {
+        zIsland.textContent = message;
+
+        setTimeout(() => {
+            zIsland.classList.remove('active');
+            zIsland.textContent = "";
+        }, 3000);
+    }
+}
+
+//-------------------settings app-----------------
 const settingsApp = document.querySelector(".settingsApp");
 const home = document.getElementById("home");
 const person = document.getElementById("person");
@@ -12,14 +189,6 @@ const accPlug = document.getElementById("accPlug");
 const aboutPlug = document.getElementById("aboutPlug");
 const time = document.getElementById("time");
 
-
-cross.addEventListener('click', ()=>{
-    settingsApp.classList.remove("appShow");
-})
-barSetting.addEventListener('click', ()=>{
-    settingsApp.classList.add("appShow");
-    homeTab();
-})
 function homeTab(){
     homePlug.classList.remove("hideLi");
     personPlug.classList.add("hideLi");
@@ -82,7 +251,6 @@ function timeTab(){
 }
 
 
-
 //------------------Clock-------------------------
 const hour = document.querySelector('.hour')
 const minute = document.querySelector('.minute')
@@ -106,7 +274,6 @@ function clock(){
     const msUntilNextSecond = 1000 - now.getMilliseconds();
     setTimeout(clock, msUntilNextSecond);
 }
-clock();
 
 let offsetX, offsetY;
 
@@ -134,52 +301,6 @@ document.addEventListener("mouseup", () => {
 
 
 
-//----------------zIsland-----------------------
-const zIsland = document.querySelector(".zIsland");
-
-function msg(message) {
-    storeMsg(message);
-    if (message.length > 10) {
-        const marq = document.createElement('div');
-        marq.textContent = message;
-        marq.style.display = 'block';
-        marq.classList.add('slide');
-        zIsland.classList.add('active');
-        zIsland.textContent = "";
-        zIsland.appendChild(marq);
-
-        marq.addEventListener('animationend', () => {
-            zIsland.classList.remove('active');
-            zIsland.textContent = "";
-        });
-
-    } else {
-        zIsland.textContent = message;
-
-        setTimeout(() => {
-            zIsland.classList.remove('active');
-            zIsland.textContent = "";
-        }, 3000);
-    }
-}
-
-
-
-
-//---------------Initialize-----------------------
-window.addEventListener('load', ()=>{
-    const welcome = document.createElement('p');
-    welcome.textContent = "welcome to Z-OS!";
-    welcome.style.fontFamily = "'Cedarville Cursive', cursive";
-    welcome.style.fontSize = "2em";
-    msg(welcome.textContent);
-    loadName();
-    if(window.innerWidth < 500){
-        alert("For better experience, use on desktop!");
-    }
-});
-
-
 //-----------------Personalize----------------------
 const images = document.querySelectorAll('img');
 const backgroundPic = document.querySelector('.backgroundPic');
@@ -187,7 +308,7 @@ function changeBg(){
     const selectedImage = document.querySelector('.imgSelected');
     if(selectedImage){
         backgroundPic.style.backgroundImage = `url(${selectedImage.src})`;
-        msg('BG changed successfully!');
+        msg('Wallpaper changed successfully!');
     } else {
         alert('Please select a wallpaper first!');
     }
@@ -233,23 +354,12 @@ function loadName(){
         const msgApp = document.querySelector('.messageApp');
         const msgContainer = document.querySelector('.msgContainer ul');
         const deleteBtn = document.querySelector('.msgContainer i');
-        const barMessagge = document.querySelector('.barMessagge');
-        const msgCross = document.querySelector('.msgCross');
         const msgCounter = document.querySelector('.msgCount');
 
         function updateMsgCount(){
             let msgs = JSON.parse(localStorage.getItem("messages")) || [];
             msgCounter.textContent = msgs.length;
         }
-
-        msgCross.addEventListener('click', () => {
-            msgApp.classList.remove('active');
-        });
-
-        barMessagge.addEventListener('click', () => {
-            msgApp.classList.add('active');
-            displayMsg();
-        });
 
         function storeMsg(msg){
             let msgs = JSON.parse(localStorage.getItem("messages")) || [];
@@ -273,25 +383,14 @@ function loadName(){
         }
 
 
-//-----------------Browser App----------------------
-const browserApp = document.querySelector('.browserApp');
-const browserIcon = document.querySelector('.barBrowser');
-const browserCross = document.querySelector('.browserCross'
-);
-browserIcon.addEventListener('click', () => {
-    browserApp.classList.add('appShow');
-});
-browserCross.addEventListener('click', () => {
-    browserApp.classList.remove('appShow');
-});
+//-----------------Init----------------------
+window.addEventListener('load', () => {
+    clock();
+    if(window.innerWidth < 700){
+        alert('For better experience, please use desktop version to access this website!');
+    }   
+    loadName();
+    displayMsg();
+    updateMsgCount();
 
-//-----------------Weather App----------------------
-const weatherApp = document.querySelector('.weatherApp');
-const weatherIcon = document.querySelector('.barWeather');
-const weatherCross = document.querySelector('.weatherCross');   
-weatherIcon.addEventListener('click', () => {
-    weatherApp.classList.add('appShow');
-});
-weatherCross.addEventListener('click', () => {
-    weatherApp.classList.remove('appShow');
 });
