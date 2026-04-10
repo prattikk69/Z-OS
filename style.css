@@ -341,6 +341,7 @@ strong{
     .taskbar{
         width: 80vw;
         gap: 5px;
+bottom:10%;
     }
     .app{
         scale: .7;
