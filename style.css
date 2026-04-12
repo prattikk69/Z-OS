@@ -9,7 +9,7 @@ body{
     overflow: hidden;
 }
 .backgroundPic{
-    background-image: url(2.jpg);
+    background-image: url(3.jpg);
     background-position: center;
     background-size: cover;
     position: absolute;
