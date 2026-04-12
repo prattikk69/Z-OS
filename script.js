@@ -530,7 +530,7 @@ function renderList() {
         const li = document.createElement('li');
         li.className = i === currentIdx ? 'active' : '';
         li.innerHTML = `
-            <span class="li-icon"><i class="fas ${t.type === 'local' ? 'fa-file-audio' : 'fa-brands fa-dezzers'}"></i></span>
+            <span class="li-icon"><i class="fas ${t.type === 'local' ? 'fa-file-audio' : 'fa-brands fa-deezer'}"></i></span>
             <span class="li-title">${escHtml(t.title)}</span>
             <span class="li-src">${t.type === 'yt' ? 'YT' : 'local'}</span>`;
         li.onclick = () => playTrack(i);
